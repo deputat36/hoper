@@ -3,7 +3,7 @@ Allow: /
 
 User-agent: Yandex
 Allow: /
-Clean-param: place&route&q&region&town&radius&access&lodging&sort&cat&nav&view&trip&move&near /
+Clean-param: place&route&q&region&town&radius&access&lodging&sort&cat&nav&photo&view&trip&move&near /
 Clean-param: place&topic /pomoch/
 
 Sitemap: https://prikhoperye.tosborisoglebsk.ru/sitemap.xml
