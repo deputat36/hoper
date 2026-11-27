@@ -8,9 +8,9 @@ const $ = id => document.getElementById(id);
 const icon = name => '<svg class="icon" aria-hidden="true"><use href="#i-' + name + '"/></svg>';
 const categories = {
   all: { label: 'Все места', icon: 'compass' },
-  history: { label: 'История', icon: 'history' },
-  museums: { label: 'Музеи', icon: 'museums' },
   nature: { label: 'Природа', icon: 'nature' },
+  museums: { label: 'Музеи', icon: 'museums' },
+  history: { label: 'История', icon: 'history' },
   culture: { label: 'Культура', icon: 'culture' },
   leisure: { label: 'Досуг', icon: 'leisure' },
   stay: { label: 'Ночлег', icon: 'stay' }
@@ -23,13 +23,15 @@ const regionOrder = ['Воронежская область', 'Тамбовск�
 const collator = new Intl.Collator('ru');
 const kmFormat = new Intl.NumberFormat('ru', { maximumFractionDigits: 1 });
 const pageSize = 12;
-const filterDefaults = { region: '', locality: '', radius: '100', access: '', lodging: '', sort: 'featured', query: '' };
-const filterParams = { region: 'region', locality: 'town', radius: 'radius', access: 'access', lodging: 'lodging', sort: 'sort', query: 'q' };
-const filters = Object.keys(filterDefaults);
+const filterDefaults = { region: '', locality: '', radius: '100', access: '', lodging: '', navigable: false, 'has-photo': false };
+const filterParams = { region: 'region', locality: 'town', radius: 'radius', access: 'access', lodging: 'lodging' };
 const checkboxFilters = { navigable: 'nav', 'has-photo': 'photo' };
 const appearance = new Map(catalog.featured.map((id, index) => [id, index]));
 
 const state = { category: 'all', savedOnly: false, tripOnly: false, view: 'list', limit: pageSize };
+const filterDialog = $('filter-dialog');
+let appliedFilters = { ...filterDefaults };
+let shownFilters;
 let road = null;
 let roadRun = 0;
 const trip = createTrip(catalog.places, () => localStorage);
@@ -105,38 +107,51 @@ function fillLocalities() {
   }
 }
 
+function readFilterFields() {
+  const selection = {};
+  for (const id of Object.keys(filterParams)) selection[id] = $(id).value;
+  for (const id of Object.keys(checkboxFilters)) selection[id] = $(id).checked;
+  return selection;
+}
+
+function writeFilterFields(selection) {
+  $('region').value = selection.region;
+  fillLocalities();
+  for (const id of Object.keys(filterParams)) $(id).value = selection[id];
+  for (const id of Object.keys(checkboxFilters)) $(id).checked = selection[id];
+}
+
+function selectValue(id, value, fallback) {
+  return [...$(id).options].some(option => option.value === value) ? value : fallback;
+}
+
 function readFilterUrl() {
   const params = new URLSearchParams(location.search);
-  for (const name of filters) {
-    const value = params.get(filterParams[name]);
-    const field = $(name);
-    if (name === 'query') field.value = (value || '').slice(0, 120);
-    else if ([...field.options].some(option => option.value === value)) field.value = value;
-    if (name === 'region') fillLocalities();
-  }
-  $('hero-search').value = $('query').value;
-  for (const [id, param] of Object.entries(checkboxFilters)) $(id).checked = params.get(param) === '1';
   if (Object.hasOwn(categories, params.get('cat'))) state.category = params.get('cat');
-  if (state.category !== 'stay') $('lodging').value = '';
   state.view = params.get('view') === 'map' ? 'map' : 'list';
   const nearby = placeById.get(params.get('near'));
-  if (nearby) {
-    $('region').value = nearby.region;
-    fillLocalities();
-    $('locality').value = localityKey(nearby);
+  $('region').value = nearby?.region || selectValue('region', params.get('region'), filterDefaults.region);
+  fillLocalities();
+  for (const id of ['locality', 'radius', 'access', 'lodging']) {
+    const value = id === 'locality' && nearby ? localityKey(nearby) : params.get(filterParams[id]);
+    $(id).value = selectValue(id, value, filterDefaults[id]);
   }
+  if (state.category !== 'stay') $('lodging').value = '';
+  for (const [id, param] of Object.entries(checkboxFilters)) $(id).checked = params.get(param) === '1';
+  appliedFilters = readFilterFields();
+  $('query').value = (params.get('q') || '').slice(0, 120);
+  $('hero-search').value = $('query').value;
+  $('sort').value = selectValue('sort', params.get('sort'), 'featured');
 }
 
 function filterUrl() {
   const url = new URL(location.href);
   url.searchParams.delete('near');
-  for (const name of filters) {
-    const value = $(name).value.trim();
-    if (value === filterDefaults[name]) url.searchParams.delete(filterParams[name]);
-    else url.searchParams.set(filterParams[name], value);
-  }
   for (const [key, value] of [
-    ...Object.entries(checkboxFilters).map(([id, param]) => [param, $(id).checked ? '1' : '']),
+    ...Object.entries(filterParams).map(([id, param]) => [param, appliedFilters[id] === filterDefaults[id] ? '' : appliedFilters[id]]),
+    ...Object.entries(checkboxFilters).map(([id, param]) => [param, appliedFilters[id] ? '1' : '']),
+    ['q', $('query').value.trim()],
+    ['sort', $('sort').value === 'featured' ? '' : $('sort').value],
     ['cat', state.category === 'all' ? '' : state.category],
     ['view', state.view === 'map' && !state.tripOnly ? 'map' : '']
   ]) {
@@ -315,26 +330,21 @@ const prepared = catalog.places.map(place => ({
     categories[place.category].label, place.lead, place.intro, place.see, ...(place.aliases || []), ...(place.intents || [])].join(' ')).split(' '))]
 }));
 
-function filtered() {
+function filtered(selection = appliedFilters) {
   if (state.tripOnly) return trip.places();
   const terms = queryTerms($('query').value);
-  const region = $('region').value;
-  const locality = $('locality').value;
-  const radius = Number($('radius').value);
-  const access = $('access').value;
-  const lodging = $('lodging').value;
-  const navigationOnly = $('navigable').checked;
-  const photosOnly = $('has-photo').checked;
+  const { region, locality, radius, access, lodging, navigable, 'has-photo': hasPhoto } = selection;
+  const maxDistance = Number(radius);
   const matched = prepared.filter(({ place, words }) =>
     (state.category === 'all' || place.category === state.category) &&
     (!state.savedOnly || saved.has(place.id)) &&
     (!region || region === place.region) &&
     (!locality || locality === localityKey(place)) &&
-    place.distanceKm <= radius &&
+    place.distanceKm <= maxDistance &&
     (!access || access === place.access) &&
     (!lodging || lodging === place.lodgingType) &&
-    (!navigationOnly || canNavigate(place)) &&
-    (!photosOnly || place.cover) &&
+    (!navigable || canNavigate(place)) &&
+    (!hasPhoto || place.cover) &&
     terms.every(term => term === 'палат' || term === 'кемпинг'
       ? place.lodgingType === 'camping' : matchesTerm(words, term)));
   const relevance = new Map(matched.map(({ place, name }) => [place.id, terms.filter(term => matchesTerm(name, term)).length]));
@@ -363,6 +373,63 @@ function updateSaved() {
   });
 }
 
+function activeFilterLabels() {
+  const { region, locality, radius, access, lodging, navigable, 'has-photo': hasPhoto } = appliedFilters;
+  return [
+    ['region', region],
+    ['locality', localities.get(locality)?.name],
+    ['radius', radius === filterDefaults.radius ? '' : 'До ' + radius + ' км'],
+    ['access', accessLabels[access]],
+    ['lodging', catalog.lodgingTypes[lodging]],
+    ['navigable', navigable ? 'Точка для навигатора' : ''],
+    ['has-photo', hasPhoto ? 'С фото' : '']
+  ].filter(([, label]) => label);
+}
+
+function renderFilters(listMode) {
+  const labels = activeFilterLabels();
+  const query = $('query').value.trim();
+  const hasChoices = Boolean(labels.length || query || state.category !== 'all' || $('sort').value !== 'featured');
+  $('catalog-search').hidden = state.tripOnly;
+  $('open-filters').hidden = state.tripOnly;
+  $('clear-query').hidden = !$('query').value;
+  const categoryBar = $('category-options');
+  categoryBar.hidden = state.tripOnly;
+  const previous = categoryBar.querySelector('[aria-pressed="true"]');
+  const selected = categoryBar.querySelector('[data-category="' + state.category + '"]');
+  if (previous !== selected) {
+    previous?.setAttribute('aria-pressed', 'false');
+    selected.setAttribute('aria-pressed', 'true');
+    if (categoryBar.scrollWidth > categoryBar.clientWidth) {
+      const strip = categoryBar.getBoundingClientRect();
+      const chip = selected.getBoundingClientRect();
+      categoryBar.scrollLeft += Math.min(0, chip.left - strip.left - 4) + Math.max(0, chip.right - strip.right + 4);
+    }
+  }
+  $('catalog-applied').hidden = state.tripOnly || !labels.length;
+  $('filter-count').textContent = labels.length;
+  $('filter-count').hidden = !labels.length;
+  $('open-filters').setAttribute('aria-label', labels.length ? 'Фильтры, выбрано ' + labels.length : 'Фильтры');
+  $('catalog-share').hidden = state.savedOnly || state.tripOnly || (!hasChoices && listMode);
+  $('sort-control').hidden = !listMode || state.tripOnly;
+  if (shownFilters === appliedFilters) return;
+  shownFilters = appliedFilters;
+  $('applied-filters').innerHTML = labels.map(([id, label]) =>
+    '<button class="filter-chip" type="button" data-remove-filter="' + id + '" aria-label="Убрать фильтр: ' + html(label) + '">' +
+    '<span>' + html(label) + '</span>' + icon('close') + '</button>').join('');
+}
+
+function updateFilterPreview() {
+  const selection = readFilterFields();
+  const count = filtered(selection).length;
+  const label = count + ' ' + plural(count, ['место', 'места', 'мест']);
+  $('filter-preview').textContent = count ? 'Подходит ' + label : 'С этими условиями ничего не найдено.';
+  $('filter-preview').classList.toggle('sr-only', count > 0);
+  $('apply-filters').textContent = count ? 'Показать ' + label : 'Нет подходящих мест';
+  $('apply-filters').disabled = count === 0;
+  $('reset-filter-draft').disabled = Object.keys(filterDefaults).every(id => selection[id] === filterDefaults[id]);
+}
+
 function render() {
   const results = filtered();
   const listMode = state.view === 'list';
@@ -370,63 +437,64 @@ function render() {
   const visible = Math.min(count, state.limit);
   const noun = plural(count, state.tripOnly ? ['остановка', 'остановки', 'остановок'] : ['место', 'места', 'мест']);
   $('catalog-title').textContent = state.tripOnly ? 'Остановки маршрута' : state.savedOnly ? 'Избранное' : 'Каталог мест';
-  $('catalog-description').textContent = state.tripOnly ? 'Места из вашего плана поездки.' : 'Выберите занятие или найдите место рядом с нужным городом.';
-  $('category-options').hidden = state.tripOnly;
-  $('catalog-filters').hidden = state.tripOnly;
-  $('catalog-tools').hidden = state.tripOnly;
-  $('lodging-control').hidden = state.category !== 'stay';
-  $('exit-itinerary').hidden = !state.tripOnly;
+  renderFilters(listMode);
+  $('exit-itinerary').hidden = !state.tripOnly && !state.savedOnly;
   $('list-view').setAttribute('aria-pressed', String(listMode));
   $('map-view').setAttribute('aria-pressed', String(!listMode));
-  $('result-status').textContent = count + ' ' + noun + (listMode && count > visible ? ' · показано ' + visible : '');
-  $('category-options').querySelectorAll('button').forEach(button => {
-    button.setAttribute('aria-pressed', String(button.dataset.category === state.category));
-  });
+  const status = count + ' ' + noun;
+  if ($('result-status').textContent !== status) $('result-status').textContent = status;
   $('empty-state').hidden = !!count;
   $('empty-title').textContent = state.savedOnly && !saved.size ? 'Избранное пока пусто' : 'Места не найдены';
   $('empty-copy').textContent = state.savedOnly && !saved.size
     ? 'Нажмите на закладку возле понравившейся карточки.'
-    : $('has-photo').checked ? 'Снимите флажок «С фото» или измените запрос.' : 'Попробуйте изменить запрос или увеличить радиус.';
-  const hasFilters = state.category !== 'all' || Object.keys(checkboxFilters).some(id => $(id).checked) ||
-    filters.some(name => $(name).value.trim() !== filterDefaults[name]);
-  $('reset-filters').hidden = state.tripOnly || (!hasFilters && !state.savedOnly);
-  $('catalog-share').hidden = state.savedOnly || state.tripOnly || (!hasFilters && listMode);
+    : 'Проверьте запрос или снимите часть условий.';
+  $('empty-reset').hidden = state.tripOnly || (state.savedOnly && !saved.size);
   syncFilterUrl();
   $('card-grid').hidden = !listMode || !count;
   $('card-grid').innerHTML = listMode ? results.slice(0, visible).map(card).join('') : '';
   $('map-panel').hidden = listMode || !count;
-  $('sort-control').hidden = !listMode || state.tripOnly;
   $('pagination').hidden = !listMode || count <= state.limit;
   if (!listMode && count) {
     $('map-note-copy').textContent = state.tripOnly
       ? 'Номера показывают порядок остановок. Пунктирная рамка означает ориентир по населённому пункту.'
       : 'Число на метке означает несколько мест рядом. Пунктирная рамка означает ориентир по населённому пункту. Кольца показывают расстояние по прямой.';
     map.draw(results, {
-      itinerary: state.tripOnly, focus: state.tripOnly || !!$('locality').value,
+      itinerary: state.tripOnly, focus: state.tripOnly || !!appliedFilters.locality,
       roadPoints: state.tripOnly ? road?.points : undefined
     });
   }
   renderRoadStatus();
+  if (filterDialog.open) updateFilterPreview();
   updateSaved();
   tripView.updateButtons();
 }
 
-function clearFilters() {
-  for (const name of filters) $(name).value = filterDefaults[name];
-  for (const id of Object.keys(checkboxFilters)) $(id).checked = false;
-  fillLocalities();
+function clearSearchAndFilters() {
+  appliedFilters = { ...filterDefaults };
+  $('query').value = '';
   $('hero-search').value = '';
+  $('sort').value = 'featured';
   state.category = 'all';
+}
+
+function clearFilters() {
+  clearSearchAndFilters();
   state.savedOnly = false;
   state.tripOnly = false;
   state.limit = pageSize;
   resetRoad();
 }
 
-function resetFilters() {
-  clearFilters();
+function refreshCatalog() {
+  state.limit = pageSize;
   map.reset(false);
   render();
+}
+
+function resetFilters() {
+  clearSearchAndFilters();
+  refreshCatalog();
+  $('query').focus({ preventScroll: true });
 }
 
 function updateIdeaButton() {
@@ -534,6 +602,7 @@ function flagFavorite(id) {
 
 function moveToCatalog() {
   $('catalog').scrollIntoView({ block: 'start' });
+  $('catalog-title').focus({ preventScroll: true });
 }
 
 function showView(view, scroll = false) {
@@ -621,12 +690,9 @@ async function share(button) {
   setTimeout(() => { caption.textContent = 'Ссылка'; }, 2000);
 }
 
-$('category-options').innerHTML = Object.entries(categories).map(([key, category]) => {
-  const count = key === 'all' ? catalog.places.length : catalog.places.filter(place => place.category === key).length;
-  return '<button class="category" type="button" data-category="' + key + '" aria-pressed="false"' +
-    (key === 'all' ? '' : ' style="--tone:var(--' + key + ')"') + '><span class="category-icon">' + icon(category.icon) +
-    '</span><span>' + html(category.label) + '<small>' + count + '</small></span></button>';
-}).join('');
+$('category-options').innerHTML = Object.entries(categories).map(([key, category]) =>
+  '<button class="category" type="button" data-category="' + key + '" aria-pressed="false">' +
+  icon(category.icon) + '<span>' + html(category.label) + '</span></button>').join('');
 for (const region of regionOrder) if (catalog.places.some(place => place.region === region)) $('region').add(new Option(region, region));
 for (const [type, label] of Object.entries(catalog.lodgingTypes)) {
   if (catalog.places.some(place => place.lodgingType === type)) $('lodging').add(new Option(label, type));
@@ -635,6 +701,10 @@ readFilterUrl();
 $('routes-grid').innerHTML = catalog.routes.map(routeCard).join('');
 $('about-count').textContent = catalog.places.length + ' ' + plural(catalog.places.length, ['место', 'места', 'мест']);
 document.addEventListener('click', event => {
+  if ((state.tripOnly || state.savedOnly) && event.target.closest('a[href="#catalog"]')) {
+    clearFilters();
+    refreshCatalog();
+  }
   const tripToggle = event.target.closest('[data-plan-toggle]');
   if (tripToggle) {
     const id = tripToggle.dataset.planToggle;
@@ -660,9 +730,8 @@ document.addEventListener('click', event => {
   const categoryButton = event.target.closest('[data-category]');
   if (categoryButton) {
     state.category = categoryButton.dataset.category;
-    if (state.category !== 'stay') $('lodging').value = '';
-    state.limit = pageSize;
-    render();
+    if (state.category !== 'stay' && appliedFilters.lodging) appliedFilters = { ...appliedFilters, lodging: '' };
+    refreshCatalog();
     return;
   }
   const shareButton = event.target.closest('[data-share]');
@@ -672,28 +741,68 @@ document.addEventListener('click', event => {
   event.preventDefault();
   openDetail('route', detailLink.dataset.route);
 });
-for (const name of filters) {
-  $(name).addEventListener(name === 'query' ? 'input' : 'change', () => {
-    if (name === 'region') fillLocalities();
-    state.limit = pageSize;
-    map.reset(false);
-    render();
-  });
+
+function refreshSearch() {
+  $('hero-search').value = $('query').value;
+  refreshCatalog();
 }
-for (const id of Object.keys(checkboxFilters)) {
-  $(id).addEventListener('change', () => {
-    state.limit = pageSize;
-    map.reset(false);
-    render();
-  });
-}
+
+$('query').addEventListener('input', refreshSearch);
+$('clear-query').addEventListener('click', () => {
+  $('query').value = '';
+  refreshSearch();
+  $('query').focus();
+});
+$('sort').addEventListener('change', refreshCatalog);
+
+$('open-filters').addEventListener('click', () => {
+  writeFilterFields(appliedFilters);
+  $('lodging-control').hidden = state.category !== 'stay';
+  updateFilterPreview();
+  filterDialog.showModal();
+});
+$('close-filters').addEventListener('click', () => filterDialog.close());
+filterDialog.addEventListener('click', event => {
+  if (event.target !== filterDialog) return;
+  const { left, right, top, bottom } = filterDialog.getBoundingClientRect();
+  if (event.clientX < left || event.clientX > right || event.clientY < top || event.clientY > bottom) filterDialog.close();
+});
+$('filter-form').addEventListener('change', event => {
+  if (event.target.id === 'region') fillLocalities();
+  updateFilterPreview();
+});
+$('reset-filter-draft').addEventListener('click', () => {
+  writeFilterFields(filterDefaults);
+  updateFilterPreview();
+  const apply = $('apply-filters');
+  (apply.disabled ? $('region') : apply).focus();
+});
+$('filter-form').addEventListener('submit', event => {
+  event.preventDefault();
+  if ($('apply-filters').disabled) return;
+  appliedFilters = readFilterFields();
+  filterDialog.close();
+  refreshCatalog();
+});
+$('applied-filters').addEventListener('click', event => {
+  const chip = event.target.closest('[data-remove-filter]');
+  if (!chip) return;
+  const index = [...$('applied-filters').children].indexOf(chip);
+  const id = chip.dataset.removeFilter;
+  appliedFilters = { ...appliedFilters, [id]: filterDefaults[id] };
+  if (id === 'region') appliedFilters.locality = '';
+  refreshCatalog();
+  const chips = $('applied-filters').children;
+  (chips[Math.min(index, chips.length - 1)] ?? $('open-filters')).focus({ preventScroll: true });
+});
+
 $('catalog-share').addEventListener('click', async () => {
   const url = filterUrl();
   for (const name of ['place', 'route', 'trip', 'move']) url.searchParams.delete(name);
   url.hash = 'catalog';
   try {
     await navigator.clipboard.writeText(url.href);
-    notify('Ссылка на выборку скопирована');
+    notify('Ссылка на подборку скопирована');
   } catch {
     const field = $('catalog-share-url');
     field.value = url.href;
@@ -746,7 +855,11 @@ $('list-view').addEventListener('click', () => showView('list'));
 $('map-view').addEventListener('click', () => showView('map'));
 $('map-trip-build').addEventListener('click', () => buildRoad($('trip-mode').value));
 $('reset-filters').addEventListener('click', resetFilters);
-$('exit-itinerary').addEventListener('click', resetFilters);
+$('exit-itinerary').addEventListener('click', () => {
+  clearFilters();
+  refreshCatalog();
+  $('catalog-title').focus({ preventScroll: true });
+});
 for (const name of ['roads', 'scheme']) {
   $('layer-' + name).addEventListener('click', () => {
     const enabled = name === 'roads';

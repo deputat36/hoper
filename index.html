@@ -11,9 +11,9 @@
   <!-- guide-origin-start --><link rel="canonical" href="https://prikhoperye.tosborisoglebsk.ru/"><meta property="og:url" content="https://prikhoperye.tosborisoglebsk.ru/"><meta property="og:image" content="https://prikhoperye.tosborisoglebsk.ru/media/hero.webp"><meta property="og:site_name" content="Прихопёрье — народный путеводитель"><!-- guide-origin-end -->
   <title>Куда сходить в Борисоглебске и куда поехать до 100 км | Прихопёрье</title>
   <link rel="icon" type="image/png" sizes="64x64" href="./media/mark.png?v=3">
-  <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="./style.css?v=catalog-2">
   <link rel="stylesheet" href="./guide.css">
-  <script type="module" src="./app.js"></script>
+  <script type="module" src="./app.js?v=catalog-2"></script>
 </head>
 <body>
   <a class="skip-link" href="#catalog">Перейти к каталогу</a>
@@ -39,6 +39,7 @@
     <symbol id="i-up" viewBox="0 0 24 24"><path d="M12 19V5m-5 5 5-5 5 5"/></symbol>
     <symbol id="i-down" viewBox="0 0 24 24"><path d="M12 5v14m-5-5 5 5 5-5"/></symbol>
     <symbol id="i-share" viewBox="0 0 24 24"><path d="M12 15V3m-4 4 4-4 4 4M7 10H5v10h14V10h-2"/></symbol>
+    <symbol id="i-filter" viewBox="0 0 24 24"><path d="M4 7h16M4 17h16"/><circle cx="9" cy="7" r="2" fill="var(--surface)"/><circle cx="15" cy="17" r="2" fill="var(--surface)"/></symbol>
     <symbol id="i-route" viewBox="0 0 24 24"><circle cx="6" cy="6" r="2.2"/><circle cx="18" cy="18" r="2.2"/><path d="M8 6h8.3a3 3 0 1 1 0 6H8a3 3 0 0 0 0 6h7.8"/></symbol>
     <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5m0-8h.01"/></symbol>
   </svg>
@@ -74,7 +75,7 @@
           <form id="hero-form" class="hero-search" role="search">
             <label class="sr-only" for="hero-search">Найти место</label>
             <svg class="icon" aria-hidden="true"><use href="#i-search"/></svg>
-            <input id="hero-search" type="search" placeholder="Место, город или занятие" autocomplete="off" maxlength="120">
+            <input id="hero-search" type="search" placeholder="Место или город" autocomplete="off" maxlength="120">
             <button type="submit">Найти</button>
           </form>
           <div class="hero-actions">
@@ -123,43 +124,42 @@
     </section>
 
     <section id="catalog" class="wrap catalog" aria-labelledby="catalog-title">
-      <div class="section-heading">
-        <div>
-          <h2 id="catalog-title">Каталог мест</h2>
-          <p id="catalog-description">Выберите занятие или найдите место рядом с нужным городом.</p>
+      <h2 id="catalog-title" tabindex="-1">Каталог мест</h2>
+      <div class="catalog-toolbar">
+        <div class="catalog-search" id="catalog-search" role="search" aria-label="Поиск по местам">
+          <svg class="icon" aria-hidden="true"><use href="#i-search"/></svg>
+          <label class="sr-only" for="query">Поиск в каталоге</label>
+          <input id="query" type="search" placeholder="Место, город или занятие" autocomplete="off" maxlength="120">
+          <button id="clear-query" class="icon-button" type="button" aria-label="Очистить поиск" hidden><svg class="icon" aria-hidden="true"><use href="#i-close"/></svg></button>
         </div>
-        <div class="view-toggle" role="group" aria-label="Режим просмотра">
-          <button id="list-view" type="button" aria-pressed="true"><svg class="icon"><use href="#i-list"/></svg> Список</button>
-          <button id="map-view" type="button" aria-pressed="false"><svg class="icon"><use href="#i-map"/></svg> Карта</button>
+        <div class="catalog-toolbar-actions">
+          <button id="open-filters" class="filter-button" type="button" aria-haspopup="dialog" aria-controls="filter-dialog">
+            <svg class="icon" aria-hidden="true"><use href="#i-filter"/></svg>
+            <span>Фильтры</span><span class="filter-count" id="filter-count" hidden></span>
+          </button>
+          <div class="view-toggle" role="group" aria-label="Режим просмотра">
+            <button id="list-view" type="button" aria-pressed="true"><svg class="icon" aria-hidden="true"><use href="#i-list"/></svg> Список</button>
+            <button id="map-view" type="button" aria-pressed="false"><svg class="icon" aria-hidden="true"><use href="#i-map"/></svg> Карта</button>
+          </div>
         </div>
       </div>
-      <div id="category-options" class="categories" aria-label="Категории"></div>
-      <div class="filters" id="catalog-filters" aria-label="Фильтры каталога">
-        <label class="filter-search">
-          <svg class="icon"><use href="#i-search"/></svg><span class="sr-only">Поиск в каталоге</span>
-          <input id="query" type="search" placeholder="Поиск по каталогу" autocomplete="off" maxlength="120">
-        </label>
-        <label class="filter"><span class="sr-only">Область</span><select id="region"><option value="">Все области</option></select><svg class="icon"><use href="#i-chevron"/></svg></label>
-        <label class="filter"><span class="sr-only">Населённый пункт</span><select id="locality"><option value="">Все населённые пункты</option></select><svg class="icon"><use href="#i-chevron"/></svg></label>
-        <label class="filter"><span class="sr-only">Расстояние</span><select id="radius"><option value="100">До 100 км</option><option value="75">До 75 км</option><option value="50">До 50 км</option><option value="25">До 25 км</option><option value="10">До 10 км</option></select><svg class="icon"><use href="#i-chevron"/></svg></label>
-        <label class="filter"><span class="sr-only">Условия посещения</span><select id="access"><option value="">Любой доступ</option><option value="outdoor">Открытые места</option><option value="schedule">По расписанию</option><option value="booking">По записи</option><option value="restricted">Особый режим</option><option value="verify">Уточнить доступ</option></select><svg class="icon"><use href="#i-chevron"/></svg></label>
-      </div>
-      <div class="catalog-tools" id="catalog-tools">
-        <label class="nav-filter"><input id="navigable" type="checkbox"> Только точки для навигатора</label>
-        <label class="nav-filter"><input id="has-photo" type="checkbox"> С фото</label>
-        <label class="filter" id="lodging-control" hidden><span class="sr-only">Формат ночлега</span><select id="lodging"><option value="">Любой формат ночлега</option></select><svg class="icon" aria-hidden="true"><use href="#i-chevron"/></svg></label>
-        <button id="catalog-share" class="text-button" type="button" hidden>Ссылка на выборку</button>
-        <label id="catalog-share-fallback" hidden>Ссылка на выборку<input id="catalog-share-url" type="url" readonly></label>
+      <div id="category-options" class="categories" role="group" aria-label="Категории мест"></div>
+      <div class="catalog-applied" id="catalog-applied" hidden>
+        <div id="applied-filters" class="applied-filters" role="group" aria-label="Активные фильтры"></div>
+        <button id="reset-filters" class="text-button" type="button">Сбросить всё</button>
       </div>
       <div class="result-bar">
-        <p id="result-status" aria-live="polite">Готовим каталог…</p>
-        <button id="reset-filters" class="text-button" type="button" hidden>Сбросить фильтры</button>
+        <p id="result-status" role="status">Готовим каталог…</p>
         <button id="exit-itinerary" class="text-button" type="button" hidden>Показать все места</button>
-        <label class="sort-control" id="sort-control"><span class="sr-only">Порядок карточек</span><select id="sort"><option value="featured">Рекомендуемые</option><option value="nearest">Ближайшие</option><option value="name">По названию</option></select><svg class="icon"><use href="#i-chevron"/></svg></label>
+        <div class="result-actions">
+          <label class="sort-control" id="sort-control"><span class="sr-only">Сортировка мест</span><select id="sort"><option value="featured">По рекомендации</option><option value="nearest">По расстоянию</option><option value="name">По названию</option></select><svg class="icon" aria-hidden="true"><use href="#i-chevron"/></svg></label>
+          <button id="catalog-share" class="icon-button" type="button" aria-label="Поделиться подборкой" title="Поделиться подборкой" hidden><svg class="icon" aria-hidden="true"><use href="#i-share"/></svg></button>
+        </div>
       </div>
+      <label id="catalog-share-fallback" hidden>Ссылка на подборку<input id="catalog-share-url" type="url" readonly></label>
       <div id="empty-state" class="empty" hidden>
-        <svg class="icon"><use href="#i-search"/></svg><h3 id="empty-title">Места не найдены</h3><p id="empty-copy">Попробуйте изменить запрос или увеличить радиус.</p>
-        <button id="empty-reset" class="button outline" type="button">Вернуться ко всем местам</button>
+        <svg class="icon" aria-hidden="true"><use href="#i-search"/></svg><h3 id="empty-title">Места не найдены</h3><p id="empty-copy">Проверьте запрос или снимите часть условий.</p>
+        <button id="empty-reset" class="button outline" type="button">Сбросить поиск и фильтры</button>
       </div>
       <div id="card-grid" class="card-grid"></div>
       <div id="map-panel" class="map-panel" hidden>
@@ -273,6 +273,42 @@
       <nav aria-label="Навигация внизу страницы"><a href="#catalog">Места</a><a href="#about">О путеводителе</a><a href="/pomoch/">Как помочь</a><a href="/partneram/">Партнёрам</a></nav>
     </div>
   </footer>
+  <dialog id="filter-dialog" class="filter-dialog" aria-labelledby="filter-title">
+    <form id="filter-form">
+      <div class="filter-head">
+        <h2 id="filter-title">Фильтры</h2>
+        <button id="close-filters" class="icon-button" type="button" aria-label="Закрыть фильтры" autofocus><svg class="icon" aria-hidden="true"><use href="#i-close"/></svg></button>
+      </div>
+      <div class="filter-body">
+        <fieldset>
+          <legend>Где искать</legend>
+          <div class="filter-fields">
+            <label>Регион<select id="region"><option value="">Все регионы</option></select></label>
+            <label>Город или село<select id="locality"><option value="">Все населённые пункты</option></select></label>
+          </div>
+          <label class="filter-distance">Расстояние от Борисоглебска<select id="radius" aria-describedby="radius-help">
+            <option value="100">До 100 км</option><option value="75">До 75 км</option><option value="50">До 50 км</option><option value="25">До 25 км</option><option value="10">До 10 км</option>
+          </select></label>
+          <p class="filter-note" id="radius-help">По прямой от центра города.</p>
+        </fieldset>
+        <fieldset>
+          <legend>Посещение</legend>
+          <label>Условия посещения<select id="access"><option value="">Любые условия</option><option value="outdoor">Под открытым небом</option><option value="schedule">По расписанию</option><option value="booking">По записи</option><option value="restricted">Особый режим</option><option value="verify">Доступ уточнить</option></select></label>
+          <label class="filter-lodging" id="lodging-control" hidden>Вариант ночлега<select id="lodging"><option value="">Любой ночлег</option></select></label>
+          <label class="filter-check"><input id="navigable" type="checkbox"> Есть точка для навигатора</label>
+          <label class="filter-check"><input id="has-photo" type="checkbox"> Есть фотография</label>
+        </fieldset>
+      </div>
+      <div class="filter-footer">
+        <p id="filter-preview" class="sr-only" role="status"></p>
+        <div class="filter-footer-actions">
+          <button id="reset-filter-draft" class="button outline" type="button">Сбросить</button>
+          <button id="apply-filters" class="button primary" type="submit">Показать места</button>
+        </div>
+      </div>
+    </form>
+  </dialog>
+
   <dialog id="detail" aria-label="Карточка">
     <div class="detail-shell">
       <button id="detail-close" class="close-detail" type="button" aria-label="Закрыть карточку" autofocus><svg class="icon"><use href="#i-close"/></svg></button>
