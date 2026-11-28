@@ -3,7 +3,15 @@ import { bookmarkKey, stopKey, readIds, writeIds } from './trip.js';
 const buttons = [...document.querySelectorAll('[data-guide-trip], [data-guide-plan], [data-guide-save]')];
 const storage = () => localStorage;
 const toast = document.getElementById('guide-toast');
+const shareButton = document.querySelector('[data-guide-share]');
 let timer;
+
+function announce(message) {
+  toast.textContent = message;
+  toast.hidden = false;
+  clearTimeout(timer);
+  timer = setTimeout(() => { toast.hidden = true; }, 2200);
+}
 
 function idsFor(button) {
   return (button.dataset.guidePlan || button.dataset.guideTrip || button.dataset.guideSave).split(',');
@@ -48,10 +56,28 @@ for (const button of buttons) {
       if (button.dataset.guideSave) message = remove ? 'Место убрано из избранного' : 'Место в избранном';
       else message = remove ? 'Остановка убрана' : 'Остановка добавлена в план';
     }
-    toast.textContent = message;
-    toast.hidden = false;
-    clearTimeout(timer);
-    timer = setTimeout(() => { toast.hidden = true; }, 2200);
+    announce(message);
+  });
+}
+
+if (shareButton && (navigator.share || navigator.clipboard?.writeText)) {
+  shareButton.hidden = false;
+  shareButton.addEventListener('click', async () => {
+    const link = document.querySelector('link[rel="canonical"]')?.href || location.href;
+    try {
+      if (navigator.share) {
+        await navigator.share({ title: document.querySelector('h1').textContent, url: link });
+        return;
+      }
+    } catch (error) {
+      if (error.name === 'AbortError') return;
+    }
+    try {
+      await navigator.clipboard.writeText(link);
+      announce('Ссылка на место скопирована');
+    } catch {
+      announce('Скопируйте адрес карточки из строки браузера');
+    }
   });
 }
 window.addEventListener('storage', sync);
