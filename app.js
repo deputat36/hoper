@@ -1,4 +1,4 @@
-import catalog from './data/catalog.js';
+import catalog from './data/catalog.js?v=places-1';
 import { createMap } from './map.js';
 import { bookmarkKey, canNavigate, createTrip, navigationLabel, placeMapUrl, readIds, readSharedTrip, routeInYandex, stopKey } from './trip.js';
 import { createTripView } from './trip-view.js';

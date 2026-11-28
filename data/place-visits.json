@@ -1,0 +1,768 @@
+{
+  "sources": {
+    "artefact": {
+      "label": "Артефакт · коллекции историко-художественного музея",
+      "url": "https://ar.culture.ru/ru/museum/borisoglebskiy-istoriko-hudozhestvennyy-muzey",
+      "checked": "2026-11-28"
+    },
+    "bsk-gallery": {
+      "label": "РИА «Глас-Медиа» · история коллекции и галереи",
+      "url": "https://ria-glas.ru/2021/novosti/kultura/v-den-goroda-svoj-yubilej-otmetit-borisoglebskaya-kartinnaya-galereya-im-petra-sholohova/",
+      "checked": "2026-11-28"
+    },
+    "library": {
+      "label": "Библиотека имени Виктора Кина · раздел площадки",
+      "url": "https://bgocbs.ru/tsgb-im-v-kina",
+      "checked": "2026-11-28"
+    },
+    "crafts": {
+      "label": "«Мой Борисоглебск» · история и мастерские Дома ремёсел",
+      "url": "https://mybsk.ru/domremesel/",
+      "checked": "2026-11-28"
+    },
+    "boris-gleb": {
+      "label": "Приход Бориса и Глеба · история и адрес",
+      "url": "https://boris.cerkov.ru/",
+      "checked": "2026-11-28"
+    },
+    "pokrov": {
+      "label": "Приход Покровского храма · Малая Грибановка",
+      "url": "https://mgriban.cerkov.ru/",
+      "checked": "2026-11-28"
+    },
+    "balashov-tickets": {
+      "label": "Балашовский драмтеатр · билеты и возврат",
+      "url": "https://xn--80abk1a0b.xn--p1ai/bilety",
+      "checked": "2026-11-28"
+    },
+    "film": {
+      "label": "Кинотеатры Борисоглебска · сеансы и контакты",
+      "url": "https://borisoglebsk.film/",
+      "checked": "2026-11-28"
+    },
+    "beaches-2026": {
+      "label": "«АиФ Воронеж» · перечень пляжей на сезон 2026 года",
+      "url": "https://vrn.aif.ru/dontknows/kakie-plyazhi-v-voronezhe-i-oblasti-bezopasny-dlya-kupaniya-v-2026-godu",
+      "checked": "2026-11-28"
+    },
+    "ivanovka-faq": {
+      "label": "Музей-заповедник «Ивановка» · вопросы посетителей",
+      "url": "https://ivanovka-museum.ru/posetitelyam/chasto-zadavayemyye-voprosy/",
+      "checked": "2026-11-28"
+    },
+    "ivanovka-tickets": {
+      "label": "Музей-заповедник «Ивановка» · экскурсии и билеты",
+      "url": "https://ivanovka-museum.ru/posetitelyam/posetitilym/",
+      "checked": "2026-11-28"
+    },
+    "hoper-routes": {
+      "label": "Хопёрский заповедник · маршруты, сезон и запись",
+      "url": "https://hoperzap.ru/routes",
+      "checked": "2026-11-28"
+    },
+    "hoper-permit": {
+      "label": "Хопёрский заповедник · форма заявки на разрешение",
+      "url": "https://hoperzap.ru/resolution",
+      "checked": "2026-11-28"
+    },
+    "hoper-stay": {
+      "label": "Хопёрский заповедник · размещение и бронирование",
+      "url": "https://hoperzap.ru/stay",
+      "checked": "2026-11-28"
+    },
+    "hoper-museum": {
+      "label": "Хопёрский заповедник · режим и экспозиция Музея природы",
+      "url": "https://hoperzap.ru/museum",
+      "checked": "2026-11-28"
+    },
+    "hoper-directions": {
+      "label": "Хопёрский заповедник · проезд до визит-центра",
+      "url": "https://hoperzap.ru/route",
+      "checked": "2026-11-28"
+    },
+    "goat": {
+      "label": "«Урюпинская правда» · экскурсия по Музею козы",
+      "url": "https://uryupinskgazeta.ru/articles/33559-segodnia-v-muzee-kozy-prosla-uvlekatelnaia-ekskursiia-dlia-vospitannikov-detskogo-sada",
+      "checked": "2026-11-28"
+    },
+    "peoples-house": {
+      "label": "ГидПлюс · Народный дом и история здания",
+      "url": "https://guideplus.ru/borisoglebsk/card/narodnyi-dom-3132",
+      "checked": "2026-11-28"
+    },
+    "drama-tickets": {
+      "label": "МТС Live · афиша Борисоглебского драмтеатра",
+      "url": "https://live.mts.ru/voronezh/venues/theater/mbuk-dramteatr-borisoglebsk",
+      "checked": "2026-11-28"
+    },
+    "dyakov": {
+      "label": "Администрация Балашова · экскурсии Дома Дьякова",
+      "url": "https://balashovadmin.ru/balashov/afisha/kraevedcheskij-muzej/636-tematicheskie-vystavki-i-peshekhodnye-ekskursii-po-istoricheskomu-tsentru-goroda/",
+      "checked": "2026-11-28"
+    },
+    "kazan": {
+      "label": "Приход Казанского храма · история и контакты",
+      "url": "https://kazans.cerkov.ru/",
+      "checked": "2026-11-28"
+    },
+    "volkonsky-house": {
+      "label": "Wikimedia Commons · архивный снимок дома на Свободы, 186",
+      "url": "https://commons.wikimedia.org/wiki/File:Фасад_Дома,_в_котором_жил_декабрист_С.Г._Волконский.jpg",
+      "checked": "2026-11-28"
+    },
+    "hoper-rules": {
+      "label": "Хопёрский заповедник · правила посещения",
+      "url": "https://hoperzap.ru/rules",
+      "checked": "2026-11-28"
+    },
+    "goat-visit": {
+      "label": "Т—Ж · прогулка по Урюпинску и музейные площадки",
+      "url": "https://t-j.ru/uryupinsk-one-day/",
+      "checked": "2026-11-28"
+    }
+  },
+  "places": {
+    "bsk-museum": {
+      "facts": {
+        "exhibition": {
+          "text": "Археология Воронежского Прихопёрья и быт купеческого Борисоглебска.",
+          "source": "artefact"
+        },
+        "location": {
+          "text": "Основные исторические залы находятся в бывшей аптеке Вейса.",
+          "source": "artefact"
+        }
+      },
+      "action": {
+        "label": "Посмотреть экспонаты онлайн",
+        "source": "artefact"
+      },
+      "questions": [
+        {
+          "question": "Галерея Шолохова находится в том же здании?",
+          "answer": "У галереи отдельное здание, бывший дом купца Полякова. Начните с музея на Советской, если хотите увидеть исторические и археологические коллекции.",
+          "source": "artefact"
+        }
+      ]
+    },
+    "bsk-gallery": {
+      "facts": {
+        "exhibition": {
+          "text": "Ядро собрания составили работы художников, связанных с Борисоглебском, в том числе Петра Шолохова.",
+          "source": "bsk-gallery"
+        },
+        "location": {
+          "text": "Галерея занимает купеческий дом Полякова на улице Свободы.",
+          "source": "artefact"
+        }
+      },
+      "action": {
+        "label": "История коллекции",
+        "source": "bsk-gallery"
+      },
+      "questions": [
+        {
+          "question": "Чем галерея отличается от краеведческой части музея?",
+          "answer": "В галерее можно познакомиться прежде всего с живописью. Археологические экспозиции и история торговли представлены в особняке Вейса.",
+          "source": "artefact"
+        }
+      ]
+    },
+    "bsk-library": {
+      "facts": {
+        "exhibition": {
+          "text": "Музей редкой книги при центральной библиотеке.",
+          "source": "library"
+        },
+        "program": {
+          "text": "Для читателей работают открытый фонд и отдельные зоны для встреч и работы с информацией.",
+          "source": "library"
+        }
+      },
+      "action": {
+        "label": "Страница библиотеки",
+        "source": "library"
+      }
+    },
+    "bsk-crafts": {
+      "facts": {
+        "program": {
+          "text": "Резьба, выжигание и гончарное дело входят в направления Дома ремёсел.",
+          "source": "crafts"
+        },
+        "format": {
+          "text": "Площадка обучает традиционным промыслам. Возможность разового занятия согласуйте заранее.",
+          "source": "crafts"
+        }
+      },
+      "action": {
+        "label": "Мастерские и справка",
+        "source": "crafts"
+      }
+    },
+    "bsk-boris-gleb": {
+      "facts": {
+        "period": {
+          "text": "Кирпичную церковь начали строить в 1784 году. Соборную часть освятили в 1792-м.",
+          "source": "boris-gleb"
+        }
+      },
+      "action": {
+        "label": "Страница прихода",
+        "source": "boris-gleb"
+      },
+      "questions": [
+        {
+          "question": "Почему на табличках встречается название «Успенский»?",
+          "answer": "Главной соборной части дали Успенское посвящение. Борису и Глебу посвящён придел, а нынешняя приходская страница носит их имя.",
+          "source": "boris-gleb"
+        }
+      ]
+    },
+    "malaya-gribanovka-pokrov-church": {
+      "facts": {
+        "location": {
+          "text": "В селе Малая Грибановка. В приходской справке указан адрес Центральная, 1.",
+          "source": "pokrov"
+        }
+      },
+      "action": {
+        "label": "Страница Покровского прихода",
+        "source": "pokrov"
+      }
+    },
+    "balashov-drama": {
+      "facts": {
+        "tickets": {
+          "text": "Билеты и условия их возврата опубликованы на сайте театра.",
+          "source": "balashov-tickets"
+        }
+      },
+      "action": {
+        "label": "Перейти к билетам",
+        "source": "balashov-tickets"
+      }
+    },
+    "bsk-k2": {
+      "facts": {
+        "program": {
+          "text": "На общей афише выберите кинотеатр «К2» и дату.",
+          "source": "film"
+        }
+      },
+      "action": {
+        "label": "Афиша и билеты",
+        "source": "film"
+      },
+      "questions": [
+        {
+          "question": "Как выбрать сеанс в нужном кинотеатре?",
+          "answer": "На общей афише выберите «К2» на Советской, 80. Рядом в списке показывают сеансы «Победы».",
+          "source": "film"
+        }
+      ]
+    },
+    "bsk-pobeda": {
+      "facts": {
+        "program": {
+          "text": "На общей афише выберите кинотеатр «Победа» и дату.",
+          "source": "film"
+        }
+      },
+      "action": {
+        "label": "Афиша и билеты",
+        "source": "film"
+      },
+      "questions": [
+        {
+          "question": "Как выбрать сеанс в нужном кинотеатре?",
+          "answer": "На общей афише выберите «Победу» на Бланской, 66. Сеансы «К2» проходят по другому адресу.",
+          "source": "film"
+        }
+      ]
+    },
+    "bsk-pesochki": {
+      "facts": {
+        "swimming": {
+          "text": "«Песочки» указаны в опубликованном перечне за лето 2026 года. Статус на следующий сезон уточняйте у администрации.",
+          "source": "beaches-2026"
+        }
+      },
+      "action": {
+        "label": "Перечень за 2026 год",
+        "source": "beaches-2026"
+      }
+    },
+    "bsk-railway-beach": {
+      "facts": {
+        "swimming": {
+          "text": "Берег у железнодорожного моста указан в перечне за лето 2026 года. Статус на следующий сезон уточняйте у администрации.",
+          "source": "beaches-2026"
+        },
+        "location": {
+          "text": "В перечне приведён ориентир относительно дома № 2 на улице Рябушкина. Дом служит ориентиром для поиска участка берега.",
+          "source": "beaches-2026"
+        }
+      },
+      "action": {
+        "label": "Перечень за 2026 год",
+        "source": "beaches-2026"
+      }
+    },
+    "tambov-ivanovka-rachmaninov": {
+      "facts": {
+        "hours": {
+          "text": "Обычно с 10:00 до 18:00, понедельник выходной. С мая по август музей работает ежедневно, по субботам до 21:00.",
+          "source": "ivanovka-faq"
+        },
+        "tickets": {
+          "text": "У прогулки по парку, экскурсии по залам и массовых событий разные билеты.",
+          "source": "ivanovka-tickets"
+        },
+        "booking": {
+          "text": "Порядок записи на экскурсию и телефоны есть в справке для посетителей.",
+          "source": "ivanovka-faq"
+        }
+      },
+      "action": {
+        "label": "Билеты и экскурсии",
+        "source": "ivanovka-tickets"
+      },
+      "questions": [
+        {
+          "question": "Можно ли приехать только в парк?",
+          "answer": "В справке музея указан отдельный входной билет на прогулку по парку. Условия посещения на выбранную дату проверьте перед выездом.",
+          "source": "ivanovka-faq"
+        }
+      ]
+    },
+    "hoper-reserve": {
+      "facts": {
+        "permit": {
+          "text": "Для экотроп и сплава нужно разрешение. Его оформляют в визит-центре или через заявку на сайте.",
+          "source": "hoper-routes"
+        },
+        "start": {
+          "text": "Для первого визита ориентируйтесь на визит-центр в посёлке Варварино.",
+          "source": "hoper-directions"
+        },
+        "season": {
+          "text": "С 1 июня по 30 сентября экотропы работают ежедневно с 08:00 до 16:00. У отдельных маршрутов свои сезонные условия.",
+          "source": "hoper-routes"
+        }
+      },
+      "action": {
+        "label": "Подать заявку на посещение",
+        "source": "hoper-permit"
+      },
+      "questions": [
+        {
+          "question": "Можно ли пройти тропу без экскурсовода?",
+          "answer": "Это зависит от программы. «Легенды Хопра» доступны для самостоятельного посещения с разрешением, а другие экскурсии могут проводиться только с сотрудником.",
+          "source": "hoper-routes"
+        },
+        {
+          "question": "Где сверить правила охраняемой территории?",
+          "answer": "Проверьте режим в разделе правил заповедника. Уточнения по конкретному маршруту и разрешению даёт визит-центр.",
+          "source": "hoper-rules"
+        }
+      ]
+    },
+    "hoper-legends-trail": {
+      "facts": {
+        "distance": {
+          "text": "5 км пешком.",
+          "source": "hoper-routes"
+        },
+        "duration": {
+          "text": "Около 3 часов по оценке заповедника.",
+          "source": "hoper-routes"
+        },
+        "season": {
+          "text": "Весной тропу закрывают на время половодья.",
+          "source": "hoper-routes"
+        },
+        "permit": {
+          "text": "Нужно разрешение на посещение маршрута.",
+          "source": "hoper-routes"
+        },
+        "equipment": {
+          "text": "Заповедник рекомендует закрытую обувь, длинные брюки, воду и защиту от насекомых.",
+          "source": "hoper-routes"
+        }
+      },
+      "action": {
+        "label": "Подать заявку на посещение",
+        "source": "hoper-permit"
+      },
+      "questions": [
+        {
+          "question": "Обязательно ли брать экскурсовода?",
+          "answer": "Заповедник разрешает самостоятельное прохождение с оформленным разрешением. Экскурсию с сотрудником заказывают заранее.",
+          "source": "hoper-routes"
+        }
+      ]
+    },
+    "tour-de-hoper": {
+      "facts": {
+        "distance": {
+          "text": "26 км на велосипеде.",
+          "source": "hoper-routes"
+        },
+        "duration": {
+          "text": "Около 4 часов.",
+          "source": "hoper-routes"
+        },
+        "terrain": {
+          "text": "Веломаршрут включает грунтовые участки и требует физической подготовки.",
+          "source": "hoper-routes"
+        },
+        "season": {
+          "text": "Май — сентябрь по программе заповедника.",
+          "source": "hoper-routes"
+        },
+        "age": {
+          "text": "От 14 лет.",
+          "source": "hoper-routes"
+        },
+        "permit": {
+          "text": "Оформите разрешение перед поездкой.",
+          "source": "hoper-routes"
+        }
+      },
+      "action": {
+        "label": "Условия веломаршрута",
+        "source": "hoper-routes"
+      }
+    },
+    "hoper-ecosystems-tour": {
+      "facts": {
+        "distance": {
+          "text": "50 км на экскурсионном автомобиле.",
+          "source": "hoper-routes"
+        },
+        "duration": {
+          "text": "Около 5–6 часов.",
+          "source": "hoper-routes"
+        },
+        "booking": {
+          "text": "По предварительной записи. В программе указана группа до 7 человек.",
+          "source": "hoper-routes"
+        },
+        "age": {
+          "text": "От 14 лет.",
+          "source": "hoper-routes"
+        },
+        "season": {
+          "text": "Май — сентябрь по программе заповедника.",
+          "source": "hoper-routes"
+        }
+      },
+      "action": {
+        "label": "Условия автоэкскурсии",
+        "source": "hoper-routes"
+      }
+    },
+    "hoper-kayak-route": {
+      "facts": {
+        "distance": {
+          "text": "Около 50 км по территории заповедника.",
+          "source": "hoper-routes"
+        },
+        "permit": {
+          "text": "Заявка и оплата заранее, по правилам заповедника минимум за неделю до начала сплава.",
+          "source": "hoper-routes"
+        },
+        "season": {
+          "text": "Проход открывают после завершения нерестового периода. Уточните дату в отделе охраны.",
+          "source": "hoper-routes"
+        },
+        "restrictions": {
+          "text": "Заповедник принимает только плавсредства без мотора. Остановки сверяйте с опубликованной схемой.",
+          "source": "hoper-routes"
+        }
+      },
+      "action": {
+        "label": "Подать заявку на сплав",
+        "source": "hoper-permit"
+      },
+      "questions": [
+        {
+          "question": "Как спланировать ночёвки по пути?",
+          "answer": "В описании маршрута заповедник перечисляет стоянки и расстояния между ними. Перед выездом согласуйте схему прохода и ночёвки с отделом охраны.",
+          "source": "hoper-routes"
+        }
+      ]
+    },
+    "hoper-russian-desman-trail": {
+      "facts": {
+        "distance": {
+          "text": "780 м по описанию заповедника.",
+          "source": "hoper-routes"
+        },
+        "duration": {
+          "text": "Около 2 часов.",
+          "source": "hoper-routes"
+        },
+        "terrain": {
+          "text": "В программу входит понтонная переправа через озеро Большое Голое.",
+          "source": "hoper-routes"
+        },
+        "booking": {
+          "text": "Экскурсию с сотрудником заказывают заранее.",
+          "source": "hoper-routes"
+        }
+      },
+      "action": {
+        "label": "Условия экскурсии",
+        "source": "hoper-routes"
+      }
+    },
+    "varvarino-nature-museum": {
+      "facts": {
+        "hours": {
+          "text": "Июнь — сентябрь ежедневно 08:00–16:00, перерыв 12:00–13:00. Октябрь — май только по будням.",
+          "source": "hoper-museum"
+        },
+        "tickets": {
+          "text": "По опубликованному режиму билеты продают до 15:30. Есть оплата по QR-коду.",
+          "source": "hoper-museum"
+        },
+        "exhibition": {
+          "text": "Два зала о животных заповедника. В первом стоит рельефная карта Хопра.",
+          "source": "hoper-museum"
+        },
+        "booking": {
+          "text": "Для заказа экскурсии музей указывает телефон +7 473 534-81-50.",
+          "source": "hoper-museum"
+        }
+      },
+      "action": {
+        "label": "Часы и правила музея",
+        "source": "hoper-museum"
+      },
+      "questions": [
+        {
+          "question": "Пускают ли в музей с животными?",
+          "answer": "Музей указывает, что животных приводить в здание нельзя.",
+          "source": "hoper-museum"
+        }
+      ]
+    },
+    "hoper-reserve-hotel": {
+      "facts": {
+        "rooms": {
+          "text": "Два отапливаемых корпуса с двух- и трёхместными номерами.",
+          "source": "hoper-stay"
+        },
+        "checkin": {
+          "text": "Заезд 14:00–16:00, выезд до 11:00 по информации заповедника.",
+          "source": "hoper-stay"
+        },
+        "facilities": {
+          "text": "Есть кухня и общая зона отдыха. Заповедник сообщает, что Wi-Fi отсутствует.",
+          "source": "hoper-stay"
+        },
+        "pets": {
+          "text": "По правилам гостиницы размещение с домашними животными закрыто.",
+          "source": "hoper-stay"
+        }
+      },
+      "action": {
+        "label": "Условия и бронь",
+        "source": "hoper-stay"
+      },
+      "questions": [
+        {
+          "question": "Где взять продукты для ночёвки?",
+          "answer": "Заповедник сообщает, что в Варварино нет магазинов и кафе. Есть кухня для гостей. Продукты можно взять по дороге.",
+          "source": "hoper-stay"
+        }
+      ]
+    },
+    "hoper-reserve-camping": {
+      "facts": {
+        "permit": {
+          "text": "Перед ночёвкой оформите разрешение на размещение в заповеднике.",
+          "source": "hoper-permit"
+        },
+        "facilities": {
+          "text": "Площадка для своей палатки, столы, скамьи, туалет, дровник и кострище.",
+          "source": "hoper-stay"
+        },
+        "equipment": {
+          "text": "Палатку и снаряжение берите с собой. Питьевую воду и остальные удобства уточняйте заранее.",
+          "source": "hoper-stay"
+        },
+        "restrictions": {
+          "text": "При 4-м и 5-м классе пожарной опасности заповедник запрещает открытый огонь.",
+          "source": "hoper-stay"
+        }
+      },
+      "action": {
+        "label": "Заявка на размещение",
+        "source": "hoper-permit"
+      },
+      "questions": [
+        {
+          "question": "Можно ли приехать с собакой?",
+          "answer": "На кемпинговых стоянках заповедник запрещает размещение с домашними животными.",
+          "source": "hoper-stay"
+        }
+      ]
+    },
+    "hoper-serebryanka": {
+      "facts": {
+        "arrival": {
+          "text": "Кордон «Серебрянка» расположен в 13 км от Центральной усадьбы. Последний участок проходит по грунтовой дороге.",
+          "source": "hoper-stay"
+        },
+        "checkin": {
+          "text": "Заповедник указывает заезд с 14:00 до 16:00, выезд до 11:00.",
+          "source": "hoper-stay"
+        },
+        "permit": {
+          "text": "Запросите разрешение на посещение заповедника вместе с бронированием.",
+          "source": "hoper-permit"
+        }
+      },
+      "action": {
+        "label": "Условия и бронь",
+        "source": "hoper-stay"
+      },
+      "questions": [
+        {
+          "question": "Куда звонить, если едете после дождя?",
+          "answer": "В разделе размещения заповедник приводит канал бронирования. Перед выездом свяжитесь с администратором и уточните проходимость грунтового участка.",
+          "source": "hoper-stay"
+        }
+      ]
+    },
+    "hoper-kutikha": {
+      "facts": {
+        "arrival": {
+          "text": "Кордон «Кутиха» расположен в 20 км от Центральной усадьбы. Последний участок проходит по грунтовой дороге.",
+          "source": "hoper-stay"
+        },
+        "checkin": {
+          "text": "Заповедник указывает заезд с 14:00 до 16:00, выезд до 11:00.",
+          "source": "hoper-stay"
+        },
+        "permit": {
+          "text": "Запросите разрешение на посещение заповедника вместе с бронированием.",
+          "source": "hoper-permit"
+        }
+      },
+      "action": {
+        "label": "Условия и бронь",
+        "source": "hoper-stay"
+      },
+      "questions": [
+        {
+          "question": "Куда звонить, если едете после дождя?",
+          "answer": "В разделе размещения заповедник приводит канал бронирования. Перед выездом свяжитесь с администратором и уточните проходимость грунтового участка.",
+          "source": "hoper-stay"
+        }
+      ]
+    },
+    "vg-goat-museum": {
+      "facts": {
+        "exhibition": {
+          "text": "История пухового промысла Урюпинска, местные козы и изделия из пуха.",
+          "source": "goat"
+        }
+      },
+      "questions": [
+        {
+          "question": "Что интересно детям на экскурсии?",
+          "answer": "В описании состоявшегося визита есть рассказ о том, как козий пух превращается в готовые изделия. Уточните у музея нынешнюю программу для возраста ребёнка.",
+          "source": "goat"
+        }
+      ]
+    },
+    "bsk-drama": {
+      "facts": {
+        "program": {
+          "text": "На сцене бывшего Народного дома. Даты и возрастную маркировку смотрите у выбранного спектакля.",
+          "source": "drama-tickets"
+        }
+      },
+      "action": {
+        "label": "Афиша спектаклей",
+        "source": "drama-tickets"
+      },
+      "questions": [
+        {
+          "question": "Чем интересно само здание театра?",
+          "answer": "Народный дом построили в 1915 году. С улицы видны два яруса и симметрия фасада в формах неоклассицизма.",
+          "source": "peoples-house"
+        }
+      ]
+    },
+    "balashov-dyakov-house": {
+      "facts": {
+        "exhibition": {
+          "text": "Обзорная экскурсия посвящена истории дома и деталям его архитектуры.",
+          "source": "dyakov"
+        },
+        "booking": {
+          "text": "Справки по экскурсиям в отделе музея по телефону +7 845 454-19-34.",
+          "source": "dyakov"
+        }
+      },
+      "questions": [
+        {
+          "question": "Можно ли продолжить знакомство с городом после особняка?",
+          "answer": "В музейном отделе проводят и пешеходные экскурсии по историческому центру. Уточните, есть ли такая программа на выбранную дату.",
+          "source": "dyakov"
+        }
+      ]
+    },
+    "bsk-kazan": {
+      "facts": {
+        "period": {
+          "text": "Приход ведёт историю от деревянной церкви 1703 года. Разрешение на каменное строительство выдали в 1811-м.",
+          "source": "kazan"
+        },
+        "location": {
+          "text": "На Садовой, у городского кладбища.",
+          "source": "kazan"
+        }
+      },
+      "action": {
+        "label": "Страница Казанского прихода",
+        "source": "kazan"
+      }
+    },
+    "bsk-volkonsky-lamp": {
+      "facts": {
+        "viewpoint": {
+          "text": "Исторический дом со стороны улицы Свободы. Его адрес — № 186.",
+          "source": "volkonsky-house"
+        }
+      },
+      "questions": [
+        {
+          "question": "Где посмотреть, каким был дом до установки памятного знака?",
+          "answer": "На снимке 2016 года виден фасад дома на Свободы, 186. Это ориентир для поиска адреса на прогулке.",
+          "source": "volkonsky-house"
+        }
+      ]
+    },
+    "vg-uryupinsk-local-museum": {
+      "facts": {
+        "exhibition": {
+          "text": "История города и местного быта. В план поездки можно включить и музейную экспозицию о пуховом промысле.",
+          "source": "goat-visit"
+        }
+      },
+      "questions": [
+        {
+          "question": "Можно ли продолжить прогулку рядом?",
+          "answer": "В центре можно совместить музей с памятником козе и скульптурой по «Судьбе человека».",
+          "source": "goat-visit"
+        }
+      ]
+    }
+  }
+}
